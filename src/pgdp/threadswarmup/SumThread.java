@@ -12,6 +12,8 @@ public class SumThread extends Thread {
     SumThread leftThread;
     SumThread rightThread;
 
+    int leftThreadCount;
+    int rightThreadCount;
 
     public SumThread(Node node, int remainingThreads) {
         this.node = node;
@@ -24,12 +26,24 @@ public class SumThread extends Thread {
     }
 
     public void run() {
-        // TODO Exercise 5
+        int sum = 0;
+        if (node.getLeft().isPresent() && leftThreadCount > 0) {
+            sum += leftThread.sum.orElse(0);
+        } else if (node.getLeft().isPresent()) {
+            sum += node.getLeft().get().sum();
+        }
+        if (node.getRight().isPresent() && rightThreadCount > 0) {
+            sum += rightThread.sum.orElse(0);
+        } else if (node.getRight().isPresent()) {
+            sum += node.getRight().get().sum();
+        }
+        this.sum = Optional.of(sum);
     }
 
     protected void startChildThreads() {
-        int leftThreadCount = leftThreadCount();
-        int rightThreadCount = remainingThreads - 1 - leftThreadCount;
+        leftThreadCount = leftThreadCount();
+        rightThreadCount = remainingThreads - 1 - leftThreadCount;
+
         if (node.getLeft().isPresent() && leftThreadCount > 0) {
             leftThread = new SumThread(node.getLeft().get(), leftThreadCount);
             leftThread.start();
