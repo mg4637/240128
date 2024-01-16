@@ -14,7 +14,9 @@ public class SumThread extends Thread {
 
 
     public SumThread(Node node, int remainingThreads) {
-        // TODO Exercise 2
+        this.node = node;
+        this.remainingThreads = remainingThreads;
+        sum = Optional.of(node.sum());
     }
 
     public Optional<Integer> getSum() {
@@ -30,8 +32,13 @@ public class SumThread extends Thread {
     }
 
     protected int leftThreadCount() {
-        // TODO Exercise 3
-        return -1;
+        int count = 0;
+        Node currentNode = node;
+        while (currentNode.getLeft().isPresent()) {
+            currentNode = currentNode.getLeft().get();
+            count++;
+        }
+        return count;
     }
 
 }
