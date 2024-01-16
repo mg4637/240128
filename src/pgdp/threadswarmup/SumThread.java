@@ -32,12 +32,13 @@ public class SumThread extends Thread {
     }
 
     protected int leftThreadCount() {
+        int remainingThreadsForChildren = remainingThreads - 1;
         if (node.getLeft().isEmpty()) {
             return 0;
         } else if (node.getRight().isEmpty()) {
-            return remainingThreads;
+            return remainingThreadsForChildren;
         } else {
-            return remainingThreads / 2;
+            return remainingThreadsForChildren / 2;
         }
     }
 
