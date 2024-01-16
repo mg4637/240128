@@ -51,7 +51,7 @@ public class SumThread extends Thread {
             sum += node.getRight().get().sum();
         }
 
-        this.sum = Optional.of(sum);
+        this.sum = Optional.of(sum + node.getValue());
     }
 
     protected void startChildThreads() {
