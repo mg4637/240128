@@ -29,12 +29,13 @@ public class SumThread extends Thread {
 
     protected void startChildThreads() {
         int leftThreadCount = leftThreadCount();
-        if (node.getLeft().isPresent()) {
+        int rightThreadCount = remainingThreads - 1 - leftThreadCount;
+        if (node.getLeft().isPresent() && leftThreadCount > 0) {
             leftThread = new SumThread(node.getLeft().get(), leftThreadCount);
             leftThread.start();
         }
-        if (node.getRight().isPresent() && leftThreadCount > 1) {
-            rightThread = new SumThread(node.getRight().get(), remainingThreads - 1 - leftThreadCount);
+        if (node.getRight().isPresent() && rightThreadCount > 0) {
+            rightThread = new SumThread(node.getRight().get(), rightThreadCount);
             rightThread.start();
         }
     }
