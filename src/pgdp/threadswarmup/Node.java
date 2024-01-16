@@ -42,8 +42,15 @@ class Node {
     // You will also need it when you want to stop creating
     // further threads.
     public int sum() {
-        // TODO Exercise 1
-        return -1;
+        if (left.isEmpty() && right.isEmpty()) {
+            return value;
+        } else if (left.isEmpty()) {
+            return right.get().sum() + value;
+        } else if (right.isEmpty()) {
+            return left.get().sum() + value;
+        } else {
+            return left.get().sum() + right.get().sum() + value;
+        }
     }
 
     public int sumWithThreads(int numberOfThreads) {
