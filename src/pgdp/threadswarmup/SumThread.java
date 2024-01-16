@@ -16,7 +16,6 @@ public class SumThread extends Thread {
     public SumThread(Node node, int remainingThreads) {
         this.node = node;
         this.remainingThreads = remainingThreads;
-        sum = Optional.of(node.sum());
     }
 
     public Optional<Integer> getSum() {
