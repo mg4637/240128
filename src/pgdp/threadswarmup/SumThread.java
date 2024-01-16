@@ -31,13 +31,13 @@ public class SumThread extends Thread {
     }
 
     protected int leftThreadCount() {
-        int count = 0;
-        Node currentNode = node;
-        while (currentNode.getLeft().isPresent()) {
-            currentNode = currentNode.getLeft().get();
-            count++;
+        if (node.getLeft().isEmpty()) {
+            return 0;
+        } else if (node.getRight().isEmpty()) {
+            return remainingThreads;
+        } else {
+            return remainingThreads / 2;
         }
-        return count;
     }
 
 }
