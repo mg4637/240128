@@ -28,7 +28,15 @@ public class SumThread extends Thread {
     }
 
     protected void startChildThreads() {
-        // TODO Exercise 4
+        int leftThreadCount = leftThreadCount();
+        if (node.getLeft().isPresent()) {
+            leftThread = new SumThread(node.getLeft().get(), leftThreadCount);
+            leftThread.start();
+        }
+        if (node.getRight().isPresent()) {
+            rightThread = new SumThread(node.getRight().get(), remainingThreads - 1 - leftThreadCount);
+            rightThread.start();
+        }
     }
 
     protected int leftThreadCount() {
