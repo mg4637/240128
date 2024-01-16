@@ -33,7 +33,7 @@ public class SumThread extends Thread {
             leftThread = new SumThread(node.getLeft().get(), leftThreadCount);
             leftThread.start();
         }
-        if (node.getRight().isPresent()) {
+        if (node.getRight().isPresent() && leftThreadCount > 1) {
             rightThread = new SumThread(node.getRight().get(), remainingThreads - 1 - leftThreadCount);
             rightThread.start();
         }
