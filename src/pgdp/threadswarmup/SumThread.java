@@ -27,16 +27,30 @@ public class SumThread extends Thread {
 
     public void run() {
         int sum = 0;
+        startChildThreads();
+
         if (node.getLeft().isPresent() && leftThreadCount > 0) {
             sum += leftThread.sum.orElse(0);
+            try {
+                leftThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         } else if (node.getLeft().isPresent()) {
             sum += node.getLeft().get().sum();
         }
+
         if (node.getRight().isPresent() && rightThreadCount > 0) {
             sum += rightThread.sum.orElse(0);
+            try {
+                rightThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         } else if (node.getRight().isPresent()) {
             sum += node.getRight().get().sum();
         }
+
         this.sum = Optional.of(sum);
     }
 
