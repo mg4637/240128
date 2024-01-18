@@ -12,7 +12,7 @@ public class Main {
         // Lower numbers will make it easier keep track of what is happening.
         // You can modify the random seed inside the generateTreeWithRandomValues method,
         // to get the same tree every time you run the program.
-        Node root = generateTreeWithRandomValues(1000);
+        Node root = generateTreeWithRandomValues(20000000);
 
         // Time the sequential sum
         long start = System.currentTimeMillis();

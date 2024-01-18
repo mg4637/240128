@@ -50,7 +50,6 @@ public class SumThread extends Thread {
         } else if (node.getRight().isPresent()) {
             sum += node.getRight().get().sum();
         }
-
         this.sum = Optional.of(sum + node.getValue());
     }
 
